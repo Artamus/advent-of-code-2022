@@ -1,25 +1,31 @@
+package org.artamus.adventofcode
+
 import java.io.File
+
+fun main() {
+    val elfTotalCalories = getElfCalories(InputReader.dataRows).map { it.sum() }
+
+    val mostCalories = elfTotalCalories.max()
+    println("Most calories: $mostCalories")
+
+    val topThreeCalories = elfTotalCalories.sortedDescending().take(3)
+    println("Top three calories total: ${topThreeCalories.sum()}")
+}
 
 object InputReader {
     // Assumes input data file is in the same folder as this code file.
     private val inputData = InputReader::class.java.getResource("input-data.txt")!!
-    val dataLines = File(inputData.toURI()).readLines()
+    val dataRows = File(inputData.toURI()).readLines()
 }
 
-fun main() {
-    val data: MutableList<MutableList<Int>> = mutableListOf(mutableListOf())
-    val elfCalories = InputReader.dataLines.fold(data) { list, element ->
-        if (element.isBlank()) {
-            list.add(mutableListOf())
+private fun getElfCalories(rows: List<String>): List<List<Int>> {
+    val calories: MutableList<MutableList<Int>> = mutableListOf(mutableListOf())
+    for (row in rows) {
+        if (row.isBlank()) {
+            calories.add(mutableListOf())
         } else {
-            list.last().add(element.toInt())
+            calories.last().add(row.toInt())
         }
-        list
-    }.map { it.sum() }
-
-    val mostCalories = elfCalories.max()
-    println("Most calories: $mostCalories")
-
-    val topThreeCalories = elfCalories.sortedDescending().take(3)
-    println("Top three calories total: ${topThreeCalories.sum()}")
+    }
+    return calories
 }
