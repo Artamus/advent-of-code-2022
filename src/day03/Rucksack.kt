@@ -1,3 +1,5 @@
+package day03
+
 data class Rucksack(private val firstCompartment: List<Char>, private val secondCompartment: List<Char>) {
 
     private val uniqueInFirst = firstCompartment.toSet()

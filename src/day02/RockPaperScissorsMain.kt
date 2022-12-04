@@ -1,13 +1,17 @@
-import java.io.File
+package day02
+
+import readInput
 
 fun main() {
-    val totalScore = InputReader.dataRows.map {
+    val inputRows = readInput("input-data-2.txt")
+
+    val totalScore = inputRows.map {
         parseRound(it)
     }.sumOf { it.score }
 
     println("Total score if playing according to the strategy guide is: $totalScore")
 
-    val correctScore = InputReader.dataRows.map {
+    val correctScore = inputRows.map {
         val data = it.split(" ")
         val opponentMove = parseEncryptedOpponentMove(data[0])
         val outcome = parseEncryptedOutcome(data[1])
@@ -41,15 +45,9 @@ private fun parseEncryptedPlayerMove(move: String) = when (move) {
     else -> throw IllegalArgumentException("""Move "$move" does not map to anything.""")
 }
 
-private fun parseEncryptedOutcome(outcome: String) = when(outcome) {
+private fun parseEncryptedOutcome(outcome: String) = when (outcome) {
     "X" -> Loss
     "Y" -> Draw
     "Z" -> Win
-    else -> throw IllegalArgumentException("""Outcome "$outcome" does not map to anything.""")
-}
-
-object InputReader {
-    // Assumes input data file is in the same folder as this code file.
-    private val inputData = InputReader::class.java.getResource("input-data.txt")!!
-    val dataRows = File(inputData.toURI()).readLines()
+    else -> throw IllegalArgumentException("""day02.Outcome "$outcome" does not map to anything.""")
 }

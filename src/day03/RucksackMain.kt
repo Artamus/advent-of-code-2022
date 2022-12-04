@@ -1,7 +1,9 @@
-import java.io.File
+package day03
+
+import readInput
 
 fun main() {
-    val inputRows = InputReaderr.dataRows
+    val inputRows = readInput("input-data-3.txt")
 
     val totalPriorityOfDuplicates = inputRows.sumOf {
         val rucksack = Rucksack.from(it)
@@ -18,13 +20,6 @@ fun main() {
     }
 
     println("Total priority of elf band badge items is $totalPriorityOfBadges")
-}
-
-// TODO: Change this, rn there's a clash between two sources, figure out some better directory structure.
-object InputReaderr {
-    // Assumes input data file is in the same folder as this code file.
-    private val inputData = InputReader::class.java.getResource("input-data.txt")!!
-    val dataRows = File(inputData.toURI()).readLines()
 }
 
 private fun calculatePriorityOfDuplicateItems(rucksack: Rucksack): Int {

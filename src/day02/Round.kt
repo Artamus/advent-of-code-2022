@@ -1,3 +1,5 @@
+package day02
+
 data class Round(private val elfMove: GameMove, private val playerMove: GameMove, private val outcome: Outcome) {
     val score = outcome.score + playerMove.score
 

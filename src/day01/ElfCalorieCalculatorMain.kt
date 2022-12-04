@@ -1,21 +1,17 @@
-package org.artamus.adventofcode
+package day01
 
-import java.io.File
+import readInput
 
 fun main() {
-    val elfTotalCalories = getElfCalories(InputReader.dataRows).map { it.sum() }
+    val inputData = readInput("input-data-1.txt")
+
+    val elfTotalCalories = getElfCalories(inputData).map { it.sum() }
 
     val mostCalories = elfTotalCalories.max()
     println("Most calories: $mostCalories")
 
     val topThreeCalories = elfTotalCalories.sortedDescending().take(3)
     println("Top three calories total: ${topThreeCalories.sum()}")
-}
-
-object InputReader {
-    // Assumes input data file is in the same folder as this code file.
-    private val inputData = InputReader::class.java.getResource("input-data.txt")!!
-    val dataRows = File(inputData.toURI()).readLines()
 }
 
 private fun getElfCalories(rows: List<String>): List<List<Int>> {
